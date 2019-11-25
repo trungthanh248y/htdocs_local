@@ -1,0 +1,1 @@
+/opt/lampp/htdocs/TrungThanh/home1.php

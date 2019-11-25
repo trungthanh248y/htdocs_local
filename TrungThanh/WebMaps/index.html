@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            height: 500px;
+            width: 500px;
+            margin: auto;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+    var map2;
+    function initMap() {
+        var geocode={lat: 20.911011, lng: 105.577157};//Vị trí hiển thị của map
+        map2 = new google.maps.Map(document.getElementById('map'), {//Taọ một bản đồ map
+            center: geocode,
+            zoom: 12,
+            scrollwheel:false,//Không để lăn chuột phóng to thu nhỏ
+        });
+        // var marker = new google.maps.Marker({//Icon đánh dấu vị trí tìm kiếm
+        //     position: geocode,//Vị trí marker này hiển thị
+        //     animation:google.maps.Animation.DROP,//Làm cho icon di chuyển(chỉ để đẹp)
+        //     map: map2,//Bản đồ marker dc gắn lên
+        // });
+        var directionsService = new google.maps.DirectionsService;
+        directionsService.route(//Tệp tin mà ng lập trình cấp hình, hay người dùng nhập để gửi lên server
+            {
+                origin:'Hai phong',//Địa điểm bắt đầu đi
+                destination:'Ha nam',//Địa điểm muốn đi tới
+                travelMode:'DRIVING',//Hình thức di chuyển
+            },
+            function (Result,Status) {
+                //Xử lý cấu hình trả về(Nếu đúng hiển thị thông tin )
+                //console.log(DirectionsResult);
+                console.log(Result);
+                if(Status=="OK")
+                {
+                    directionsDisplay = new google.maps.DirectionsRenderer({//Cách 1: sử dụng __construct
+                        directions:Result,//Cách để hiển thị bản đồ(vd: trong thẻ div)
+                        map:map2,//Map hiển thị
+                    });
+                    // console.log(DirectionsResult);
+                }
+            }
+        );
+        // var directionsDisplay = new google.maps.DirectionsRenderer({//cách 2 sử dụng method
+        //     draggable: true,
+        //     map: map,
+        //     panel: document.getElementById('right-panel')
+        // });
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyB6K1CFUQ1RwVJ-nyXxd6W0rfiIBe12Q&callback=initMap"
+        async defer></script>
+</body>
+</html>

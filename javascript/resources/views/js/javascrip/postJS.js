@@ -1,0 +1,3 @@
+function adu() {
+    alert('a');
+}
